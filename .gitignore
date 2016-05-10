@@ -1,11 +1,10 @@
 /vendor
 /node_modules
 /public/storage
-#Homestead.yaml
-#Homestead.json
 .env
 public/images
 public/fonts
-public/css
 public/build
+public/css
+public/js
 .vagrant

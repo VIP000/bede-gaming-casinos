@@ -1,5 +1,5 @@
 # Bede Gaming Developer Test
-As a way for Bede Gaming to get to know a developers skills, they ask you to do a simple task with some deliverables, please see [bref.md](bref.md)
+As a way for Bede Gaming to get to know a developers skills, they ask you to do a simple task with some deliverables, please see [brief.md](brief.md)
 
 ## Setup
 To setup this project, please run the following command in a terminal `composer install && vagrant up`.  

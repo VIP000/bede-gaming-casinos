@@ -1,2 +1,13 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+// import lato here, not in the head
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700);
 
+// our variables, above bootstrap for overrides
+@import "components/variables";
+
+// Node Modules
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/font-awesome/scss/font-awesome";
+
+// our scss components
+@import "components/base";
+@import "components/social-buttons";

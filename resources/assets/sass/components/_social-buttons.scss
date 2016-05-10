@@ -1,0 +1,19 @@
+.btn-facebook {
+    background: #3b5998;
+    border-radius: 0;
+    color: #fff;
+
+    &:link, &:visited {
+        color: #fff
+    }
+
+    &:active, &:hover {
+        background: #30477a;
+        color: #fff
+    }
+}
+
+.btn.disabled.normal {
+    opacity: 1;
+    cursor: default;
+}

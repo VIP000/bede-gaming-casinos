@@ -1,0 +1,69 @@
+body {
+    font-family: 'Lato';
+}
+
+.fa-btn {
+    margin-right: 6px;
+}
+
+.pad-top {
+    padding-top: 20px;
+
+    &-none {
+        padding-top: 0px;
+    }
+}
+
+.pad-bottom {
+    padding-bottom: 20px;
+
+    &-none {
+        padding-bottom: 0px;
+    }
+}
+
+.margin-top {
+    margin-top: 20px;
+
+    &-none {
+        margin-top: 0px;
+    }
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
+
+    &-none {
+        margin-bottom: 0px;
+    }
+}
+
+.badge {
+    &-success {
+        background-color: darken($state-success-bg, 15%);
+        color: $state-success-text;
+    }
+
+    &-info {
+        background-color: darken($state-info-bg, 15%);
+        color: $state-info-text;
+    }
+
+    &-warning {
+        background-color: darken($state-warning-bg, 15%);
+        color: $state-warning-text;
+    }
+
+    &-danger {
+        background-color: darken($state-danger-bg, 15%);
+        color: $state-danger-text;
+    }
+}
+
+.default-cursor {
+    cursor: default !important;
+}
+
+.auto-cursor {
+    cursor: auto !important;
+}

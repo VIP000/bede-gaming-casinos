@@ -16,9 +16,22 @@
             debug: {{ app()->environment("dev", "development", "local") ? "true" : "false" }},
             environment: '{{ app()->environment() }}',
             userId: {{ Auth::guest() ? "false" : Auth::user()->id }},
+            name: '{{ Auth::guest() ? "" : Auth::user()->name }}',
             apiToken: {!! Auth::guest() ? "null" : "'" . Auth::user()->api_token . "'" !!},
             isAdmin: {{ Auth::guest() ? "false" : (Auth::user()->isAdmin() ? "true" : "false") }},
-            csrfToken: '{{ csrf_token() }}'
+            csrfToken: '{{ csrf_token() }}',
+        };
+
+        var NotificationStore = {
+            state: [], // here the notifications will be added
+
+            addNotification: function (notification) {
+                this.state.push(notification)
+            },
+
+            removeNotification: function (notification) {
+                this.state.$remove(notification)
+            },
         };
     </script>
 </head>
@@ -102,6 +115,10 @@
 
     <div id="app">
         @yield('content')
+    </div>
+
+    <div id="notifications">
+        <notifications></notifications>
     </div>
 
     <!-- JavaScripts -->

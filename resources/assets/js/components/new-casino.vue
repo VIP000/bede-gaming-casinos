@@ -87,13 +87,13 @@
                 // get(url, [data], [options])
                 return this.$http.get("csrf", {
                     api_token: app.apiToken
-                }).then(function (response) {
+                }).then(response => {
                     console.log('fetched csrf token field');
 
                     return {
                         csrf_field: response.data,
                     };
-                },function (error_response) {
+                }, error_response => {
                     console.log('error');
                     console.log(error_response);
                 });

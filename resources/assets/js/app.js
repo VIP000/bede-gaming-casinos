@@ -1,5 +1,6 @@
 require('bootstrap-without-jquery');
 require('./number-format.js');
+require('./merge_options.js');
 
 let Vue = require('vue');
 let VueRouter = require('vue-router');
@@ -9,6 +10,11 @@ Vue.use(require('vue-resource'));
 
 Vue.http.options.root = '/api';
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#csrf-token').getAttribute('content');
+
+Vue.transition('fade', {
+    enterClass: 'fadeInDown', // class of animate.css
+    leaveClass: 'fadeOutDown' // class of animate.css
+})
 
 var fourOhfour = Vue.extend({
     // You can use also use template path (Thanks to @jcerdan)
@@ -24,15 +30,13 @@ var router = new VueRouter({
     linkActiveClass: 'active'
 });
 
-var authRedirect = Vue.extend({
-    ready: function() {
-        console.log('login required');
-
-        window.location = window.location.protocol + '//' + window.location.hostname + '/login';
-    }
-});
-
 router.beforeEach(function (transition) {
+    if (transition.to.guestOnly) {
+        if (app.userId !== false && app.apiToken !== null) {
+            transition.redirect('/');
+        }
+    }
+
     if (transition.to.authOnly) {
         if (!app.userId && !app.apiToken) {
             transition.redirect('/auth');
@@ -50,9 +54,15 @@ router.map({
         name: 'home',
         component: require('./components/home.vue'),
     },
-    '/auth': {
-        name: 'auth',
-        component: authRedirect,
+    '/login': {
+        name: 'login',
+        component: require('./components/auth/login.vue'),
+        guestOnly: true,
+    },
+    '/register': {
+        name: 'register',
+        component: require('./components/auth/register.vue'),
+        guestOnly: true,
     },
     '/search': {
         name: 'search',
@@ -65,4 +75,30 @@ router.map({
     },
 });
 
-router.start(Vue.extend({}), 'html')
+router.start(Vue.extend({
+    data: function() {
+        return {
+            user: {
+                userId: app.userId,
+                name: app.name,
+                apiToken: app.apiToken,
+                isAdmin: app.isAdmin,
+            },
+        };
+    },
+    components: {
+        notification: require('./components/common/notification.vue'),
+        notifications: require('./components/common/notifications.vue'),
+    },
+    ready: function() {
+        if (this.user.userId !== false && this.user.apiToken !== null) {
+            NotificationStore.addNotification({
+                type: 'success',
+                text: 'Hey there ' + this.user.name + '!',
+                timeout: true,
+                delay: 5000,
+            });
+        }
+    },
+    NotificationStore: NotificationStore,
+}), 'html')

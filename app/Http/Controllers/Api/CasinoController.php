@@ -21,7 +21,11 @@ class CasinoController extends Controller
 
     public function show(Request $request, $id = false)
     {
-        $geolocation = $this->getGeolocationFromIP($request);
+        $geolocation = $this->getGeolocationFromCookie($request);
+
+        if (!$geolocation) {
+            $geolocation = $this->getGeolocationFromIP($request);
+        }
 
         if (!empty($id)) {
             try {
@@ -125,6 +129,11 @@ class CasinoController extends Controller
         }
 
         return json_decode($response);
+    }
+
+    protected function getGeolocationFromCookie(Request $request)
+    {
+        return empty($_COOKIE["geolocation"]) ? false : json_decode($_COOKIE["geolocation"], true);
     }
 
     protected function getGeolocationFromIP(Request $request)

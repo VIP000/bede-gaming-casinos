@@ -9,17 +9,32 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Welcome</div>
+                    <div class="panel-heading">Listed Casino&rsquo;s</div>
 
                     <div class="panel-body">
-                        Your Application's Landing Page.
+                        Below is a list of all our casino&rsquo;s, sorted by the closest to your current location!
                     </div>
+
+                    <ul class="list-group">
+                        <a
+                            v-for="casino in casinos"
+                            class="list-group-item"
+                            v-link="{
+                                name: 'casino',
+                                params: {
+                                    id: casino.id
+                                }
+                            }"
+                        >
+                            {{ casino.name }} ({{ parseFloat(casino.distance).formatMoney('') }} miles from your current location)
+                        </a>
+                    </ul>
                 </div>
             </div>
         </div>
 
         <div>
-            <map :casinos="casinos"></map>
+            <map :casinos.sync="casinos"></map>
         </div>
     </div>
 </template>

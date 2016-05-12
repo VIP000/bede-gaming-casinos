@@ -63,11 +63,11 @@
                         </a>
                     </li>
 
-                    <li>
+                    {{-- <li>
                         <a v-link="{ name: 'search' }">
                             Search
                         </a>
-                    </li>
+                    </li> --}}
 
                     @if (!Auth::guest() && Auth::user()->isAdmin())
                         <li>

@@ -64,10 +64,10 @@ router.map({
         component: require('./components/auth/register.vue'),
         guestOnly: true,
     },
-    '/search': {
-        name: 'search',
-        component: require('./components/search.vue'),
-    },
+    // '/search': {
+    //     name: 'search',
+    //     component: require('./components/search.vue'),
+    // },
     '/new-casino': {
         name: 'new-casino',
         component: require('./components/casinos/new.vue'),
@@ -78,7 +78,7 @@ router.map({
         component: require('./components/casinos/view.vue'),
     },
     '/:id/edit': {
-        name: 'casino.edit',
+        name: 'edit-casino',
         component: require('./components/casinos/edit.vue'),
         authOnly: true,
     },

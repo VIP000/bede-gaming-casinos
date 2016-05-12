@@ -176,6 +176,8 @@
                         };
                         self.$set("geolocation", geolocation);
 
+                        document.cookie = 'geolocation=' + JSON.stringify(geolocation) + '; expires=Mon, 12 May 2036 00:00:00 UTC; path=/'
+
                         if (null == this.center) {
                             map.panTo(geolocation);
                         }

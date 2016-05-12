@@ -11,6 +11,9 @@
     @if (\Auth::guest() ? false : \Auth::user()->isAdmin())
         <br>
         <br>
-        <a v-link="{ name: 'casino.edit' }" href="/{{ $casino->id }}/edit" class="btn btn-warning btn-block text-center">Edit</a>
+        <a
+            href="/{{ $casino->id }}/edit"
+            class="btn btn-warning btn-block text-center"
+        >Edit</a>
     @endif
 </div>

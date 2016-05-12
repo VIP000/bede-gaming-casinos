@@ -8,11 +8,11 @@ The Bede Casino is implementing a new gaming site that includes a local casino f
 
 ### Stories
 ---
-- [ ] As an administrator when I am editing the site, I must be able to securely add casinos name, location and opening times
-- [ ] As an administrator I must be able to edit casinos details
-- [ ] As an administrator I can delete a casino
+- [x] As an administrator when I am editing the site, I must be able to securely add casinos name, location and opening times
+- [x] As an administrator I must be able to edit casinos details
+- [x] As an administrator I can delete a casino
 - [ ] As a user I should be able to search for the nearest casino to my current location
-- [ ] As a user I should be able to see casinos on a map
+- [x] As a user I should be able to see casinos on a map
 
 
 ### Notes

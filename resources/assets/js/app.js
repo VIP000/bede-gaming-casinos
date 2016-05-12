@@ -39,7 +39,7 @@ router.beforeEach(function (transition) {
 
     if (transition.to.authOnly) {
         if (!app.userId && !app.apiToken) {
-            transition.redirect('/auth');
+            transition.redirect('/login');
         }
     }
 
@@ -70,7 +70,16 @@ router.map({
     },
     '/new-casino': {
         name: 'new-casino',
-        component: require('./components/new-casino.vue'),
+        component: require('./components/casinos/new.vue'),
+        authOnly: true,
+    },
+    '/:id': {
+        name: 'casino',
+        component: require('./components/casinos/view.vue'),
+    },
+    '/:id/edit': {
+        name: 'casino.edit',
+        component: require('./components/casinos/edit.vue'),
         authOnly: true,
     },
 });

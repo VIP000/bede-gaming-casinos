@@ -26,6 +26,6 @@ class User extends Authenticatable
 
     public function scopeIsAdmin($query)
     {
-        return true;
+        return $this->admin;
     }
 }

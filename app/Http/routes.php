@@ -10,11 +10,14 @@ Route::group(["middleware" => "web"], function () {
             Route::get("/", "UserController@getProfile");
         });
 
-        // Route::group(["prefix" => "casinos"], function () {
-        //     Route::get("/", "CasinoController@index");
-        //     Route::get("search/{query}", "CasinoController@search");
-        //     Route::get("{slug}", "CasinoController@get");
-        // });
+        Route::group(["prefix" => "casinos"], function () {
+            Route::get("/{id?}", "CasinoController@show");
+            // Route::get("search/{query}", "CasinoController@search");
+
+            Route::post("/", "CasinoController@create");
+            Route::put("{id}", "CasinoController@update");
+            Route::delete("{id}", "CasinoController@delete");
+        });
     });
 
     Route::group(["as" => "auth.", "namespace" => "Auth"], function() {

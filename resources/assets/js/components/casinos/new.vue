@@ -1,4 +1,7 @@
 <style lang="scss">
+    #map {
+        height: calc(100vh - 200px);
+    }
 </style>
 
 <template>
@@ -9,8 +12,11 @@
                     <div class="panel-heading">New Casino</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="casinos" @submit="ajax">
+                        <form class="form-horizontal" role="form" method="POST" action="casinos" @submit.prevent="ajax">
                             {{{ csrf_field }}}
+
+                            <input type="hidden" name="position_lat">
+                            <input type="hidden" name="position_lng">
 
                             <div
                                 class="form-group"
@@ -18,7 +24,7 @@
                                     'has-error': false,
                                 }"
                             >
-                                <label class="col-md-4 control-label">Name</label>
+                                <label class="col-md-4 control-label" for="name">Name</label>
 
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="name" value="">
@@ -35,13 +41,13 @@
                                     'has-error': false,
                                 }"
                             >
-                                <label class="col-md-4 control-label">Location</label>
+                                <label class="col-md-4 control-label" for="address">Address</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="location" value="">
+                                    <input type="text" class="form-control" name="address" id="address" value="">
 
                                     <span v-if="false" class="help-block">
-                                        <strong>{{ errors.location }}</strong>
+                                        <strong>{{ errors.address }}</strong>
                                     </span>
                                 </div>
                             </div>
@@ -52,13 +58,13 @@
                                     'has-error': false,
                                 }"
                             >
-                                <label class="col-md-4 control-label">Opening Times</label>
+                                <label class="col-md-4 control-label" for="hours">Opening Times</label>
 
                                 <div class="col-md-6">
-                                    <textarea class="form-control" name="opening-times" cols="30" rows="10"></textarea>
+                                    <textarea class="form-control" name="hours" cols="30" rows="10"></textarea>
 
                                     <span v-if="false" class="help-block">
-                                        <strong>{{ errors.opening-times }}</strong>
+                                        <strong>{{ errors.hours }}</strong>
                                     </span>
                                 </div>
                             </div>
@@ -74,12 +80,21 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-8 col-md-offset-2">
+                <map></map>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     export default {
+        data: function() {
+            return {
+                csrf_field: null,
+            };
+        },
         route: {
             data: function(transition) {
                 var self = this;
@@ -100,9 +115,44 @@
             },
         },
         methods: {
-            ajax: function() {
+            ajax: function(event) {
+                var self = this,
+                    form = event.currentTarget,
+                    data = new FormData(form),
+                    action = form.getAttribute('action');
 
+                form.querySelector('button').setAttribute('disabled', 'disabled');
+
+                return self.$http.post(action, data)
+                            .then(response => {
+                                if (response.ok) {
+                                    NotificationStore.addNotification({
+                                        type: 'success',
+                                        title: response.data.name,
+                                        text: 'Your casino has been added!',
+                                        timeout: 5000,
+                                    });
+
+                                    console.log(JSON.stringify(response.data, null, 4));
+
+                                    self.$router.go({
+                                        name: 'casino',
+                                        params: {
+                                            id: response.data.id,
+                                        }
+                                    })
+                                } else {
+                                    form.querySelector('button').removeAttribute('disabled');
+                                }
+                            }, error_response => {
+                                console.log(JSON.stringify(error_response, null, 4));
+                                self.$set('errors', error_response.data);
+                                form.querySelector('button').removeAttribute('disabled');
+                            });
             },
+        },
+        components: {
+            map: require('../map.vue'),
         },
     }
 </script>

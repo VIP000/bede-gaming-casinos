@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
             "password" => bcrypt("password"),
             "api_token" => str_random(60),
             "remember_token" => str_random(10),
+            "admin" => true,
         ]);
 
         factory(App\User::class, 25)->create();

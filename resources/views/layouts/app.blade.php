@@ -58,20 +58,20 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li>
-                        <a v-link="{ name: 'home'}">
+                        <a v-link="{ name: 'home' }">
                             Home
                         </a>
                     </li>
 
                     <li>
-                        <a v-link="{ name: 'search'}">
+                        <a v-link="{ name: 'search' }">
                             Search
                         </a>
                     </li>
 
                     @if (!Auth::guest() && Auth::user()->isAdmin())
                         <li>
-                            <a v-link="{ name: 'new-casino'}">
+                            <a v-link="{ name: 'new-casino' }">
                                 Add New Casino
                             </a>
                         </li>
@@ -122,6 +122,7 @@
     </div>
 
     <!-- JavaScripts -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzlLYISGjL_ovJwAehh6ydhB56fCCpPQw&libraries=places"></script>
     <script src="/js/app.js"></script>
     {{-- <script src="{{ elixir("js/app.js") }}"></script> --}}
 </body>
